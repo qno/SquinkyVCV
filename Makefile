@@ -1,14 +1,13 @@
 CFLAGS +=
 CXXFLAGS +=
 
-PLUGIN_1_INCLUDES = -I./dsp/generators -I./dsp/utils -I./dsp/filters
-PLUGIN_1_INCLUDES += -I./dsp/third-party/falco -I./dsp/third-party/kiss_fft130 
-PLUGIN_1_INCLUDES += -I./dsp/third-party/kiss_fft130/tools -I./dsp/third-party/src -I./dsp/third-party/midifile
-PLUGIN_1_INCLUDES += -I./dsp -I./dsp/samp -I./dsp/third-party/pugixml
-PLUGIN_1_INCLUDES += -I./sqsrc/thread -I./dsp/fft -I./composites
-PLUGIN_1_INCLUDES += -I./sqsrc/noise -I./sqsrc/util -I./sqsrc/clock -I./sqsrc/grammar -I./sqsrc/delay
-PLUGIN_1_INCLUDES += -I./midi/model -I./midi/view -I./midi/controller -I./util
-PLUGIN_1_INCLUDES += -I./src/third-party -I.src/ctrl -I./src/kbd
+PLUGIN_1_INCLUDES = dsp/generators dsp/utils dsp/filters
+PLUGIN_1_INCLUDES += dsp/third-party/falco dsp/third-party/kiss_fft130 
+PLUGIN_1_INCLUDES += dsp/third-party/kiss_fft130/tools dsp/third-party/src dsp/third-party/midifile
+PLUGIN_1_INCLUDES += dsp dsp/samp dsp/third-party/pugixml
+PLUGIN_1_INCLUDES += sqsrc/thread dsp/fft composites
+PLUGIN_1_INCLUDES += sqsrc/noise sqsrc/util sqsrc/clock sqsrc/grammar sqsrc/delay
+PLUGIN_1_INCLUDES += midi/model midi/view midi/controller util
 
 PLUGIN_1_COMMON_SOURCES = $(wildcard dsp/**/*.cpp)
 PLUGIN_1_COMMON_SOURCES += $(wildcard dsp/third-party/falco/*.cpp)
