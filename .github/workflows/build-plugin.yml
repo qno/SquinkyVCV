@@ -15,11 +15,11 @@ jobs:
     strategy:
       matrix:
         config:
-        - {
-            name: Linux,
-            os: ubuntu-latest,
-            prepare-os: sudo apt install -y libglu-dev
-          }
+#        - {
+#            name: Linux,
+#            os: ubuntu-latest,
+#            prepare-os: sudo apt install -y libglu-dev
+#          }
         - {
             name: MacOS,
             os: macos-latest,
