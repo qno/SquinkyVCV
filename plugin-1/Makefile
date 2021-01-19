@@ -3,9 +3,9 @@ RACK_DIR ?= ../../..
 INCLUDES =  ../dsp/generators ../dsp/utils ../dsp/filters
 INCLUDES += ../dsp/third-party/falco ../dsp/third-party/kiss_fft130 
 INCLUDES += ../dsp/third-party/kiss_fft130/tools ../dsp/third-party/src ../dsp/third-party/midifile
-INCLUDES += ../dsp dsp/samp ../dsp/third-party/pugixml
+INCLUDES += ../dsp ../dsp/samp ../dsp/third-party/pugixml
 INCLUDES += ../sqsrc/thread ../dsp/fft ../composites
-INCLUDES += ../sqsrc/noise ../sqsrc/util ../sqsrc/clock ../sqsrc/grammar ../sqsrc/delay
+INCLUDES += ../sqsrc/util ../sqsrc/clock ../sqsrc/grammar ../sqsrc/delay
 INCLUDES += ../midi/model ../midi/view ../midi/controller ../util
 INCLUDES += src/third-party src/ctrl src/kbd
 
@@ -20,7 +20,7 @@ SRCS += $(wildcard src/third-party/*.cpp)
 SRCS += $(wildcard src/seq/*.cpp)
 SRCS += $(wildcard src/kbd/*.cpp)
 
-FLAGS +=  $(foreach INCLUDE,$(INCLUDES),-I$(INCLUDE))
+FLAGS +=  $(foreach INCLUDE,$(INCLUDES),-I$(realpath $(INCLUDE)))
 SOURCES = $(foreach SRC,$(SRCS),$(realpath $(SRC)))
 
 $(info FLAGS="$(FLAGS)")

@@ -1,4 +1,5 @@
 RACK_DIR ?= ../..
+
 include $(RACK_DIR)/arch.mk
 
 CFLAGS +=
@@ -23,16 +24,12 @@ endif
 
 # Careful about linking to shared libraries, since you can't assume much about the user's environment and library search path.
 # Static libraries are fine.
-LDFLAGS += -lpthread
+LDFLAGS += -lpthread -flto
 
 # mac does not like this argument
-ifdef ARCH_WIN
-	FLAGS += -fmax-errors=5
+ifndef ARCH_MAC
+	FLAGS += -fmax-errors=5 -finline-limit=500000 -finline-functions-called-once
 endif
-
-#  -flto
-FLAGS += -finline-limit=500000 -finline-functions-called-once -flto
-LDFLAGS += -flto
 
 export CFLAGS
 export CXXFLAGS
