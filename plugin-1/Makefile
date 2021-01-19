@@ -20,7 +20,7 @@ SOURCES += $(wildcard src/third-party/*.cpp)
 SOURCES += $(wildcard src/seq/*.cpp)
 SOURCES += $(wildcard src/kbd/*.cpp)
 
-FLAGS += $(foreach INCLUDE,$(PLUGIN_1_INCLUDES),-I$(INCLUDE))
+FLAGS += $(foreach INCLUDE,$(INCLUDES),-I$(INCLUDE))
 $(info FLAGS="$(FLAGS)")
 $(info SOURCES="$(SOURCES)")
 
