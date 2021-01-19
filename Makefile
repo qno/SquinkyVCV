@@ -24,8 +24,7 @@ endif
 
 # Careful about linking to shared libraries, since you can't assume much about the user's environment and library search path.
 # Static libraries are fine.
-LDFLAGS += -lpthread
-FLAGS += -flto
+LDFLAGS += -lpthread -flto
 
 # mac does not like this argument
 ifndef ARCH_MAC
