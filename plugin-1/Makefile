@@ -1,6 +1,6 @@
 RACK_DIR ?= ../../..
 
-INCS := $(foreach inc,$(PLUGIN_1_INCLUDES),-I../$(inc)))
+INCS := $(foreach inc,$(PLUGIN_1_INCLUDES),-I../$(inc))
 INCS += -I./src/third-party -I.src/ctrl -I./src/kbd
 
 FLAGS += $(INCS)
@@ -8,7 +8,7 @@ $(info PLUGIN_1_INCLUDES="$(PLUGIN_1_INCLUDES)")
 $(info INCS="$(INCS)")
 $(info FLAGS="$(FLAGS)")
 
-SRCS = $(foreach src,$(PLUGIN_1_COMMON_SOURCES),../$(src)))
+SRCS = $(foreach src,$(PLUGIN_1_COMMON_SOURCES),../$(src))
 SOURCES += $(SRCS)
 SOURCES += $(wildcard src/third-party/*.cpp)
 SOURCES += $(wildcard src/seq/*.cpp)
@@ -22,17 +22,3 @@ DISTRIBUTABLES += $(wildcard ../LICENSE*) res presets
 
 # Include the VCV Rack plugin Makefile framework
 include $(RACK_DIR)/plugin.mk
-
-# This turns asserts off for make (plugin), not for test or perf
-$(TARGET) :  FLAGS += $(ASSERTOFF)
-
-$(TARGET) : FLAGS += -D __PLUGIN
-
-# mac does not like this argument
-ifdef ARCH_WIN
-	FLAGS += -fmax-errors=5
-endif
-
-#  -flto
-FLAGS += -finline-limit=500000 -finline-functions-called-once -flto
-LDFLAGS += -flto
