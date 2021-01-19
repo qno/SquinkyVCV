@@ -1,8 +1,10 @@
 RACK_DIR ?= ../../..
-FLAGS += $(PLUGIN_1_INCLUDES)
+
+# https://www.gnu.org/software/make/manual/make.html#Substitution-Refs
+FLAGS += $(PLUGIN_1_INCLUDES:-I.=-I..)
 
 # Add .cpp and .c files to the build
-SOURCES += $(PLUGIN_1_COMMON_SOURCES)
+SOURCES += $(PLUGIN_1_COMMON_SOURCES: = ../)
 SOURCES += $(wildcard src/third-party/*.cpp)
 SOURCES += $(wildcard src/seq/*.cpp)
 SOURCES += $(wildcard src/kbd/*.cpp)
