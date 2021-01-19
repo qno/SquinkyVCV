@@ -21,7 +21,7 @@ SRCS += $(wildcard src/seq/*.cpp)
 SRCS += $(wildcard src/kbd/*.cpp)
 
 FLAGS +=  $(foreach INCLUDE,$(INCLUDES),-I$(realpath $(INCLUDE)))
-SOURCES = $(foreach SRC,$(SRCS),$(realpath $(SRC)))
+SOURCES += $(SRCS)
 
 $(info FLAGS="$(FLAGS)")
 $(info SOURCES="$(SOURCES)")
