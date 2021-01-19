@@ -16,6 +16,7 @@ SRCS += ../dsp/third-party/kiss_fft130/kiss_fft.c
 SRCS += ../dsp/third-party/kiss_fft130/tools/kiss_fftr.c
 SRCS += $(wildcard ../sqsrc/**/*.cpp)
 SRCS += $(wildcard ../midi/**/*.cpp)
+SRCS += $(wildcard src/*.cpp)
 SRCS += $(wildcard src/third-party/*.cpp)
 SRCS += $(wildcard src/seq/*.cpp)
 SRCS += $(wildcard src/kbd/*.cpp)
