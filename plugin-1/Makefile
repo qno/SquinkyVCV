@@ -7,7 +7,7 @@ INCLUDES += ../dsp dsp/samp ../dsp/third-party/pugixml
 INCLUDES += ../sqsrc/thread ../dsp/fft ../composites
 INCLUDES += ../sqsrc/noise ../sqsrc/util ../sqsrc/clock ../sqsrc/grammar ../sqsrc/delay
 INCLUDES += ../midi/model ../midi/view ../midi/controller ../util
-INCLUDES +=  /src/third-party src/ctrl src/kbd
+INCLUDES += src/third-party src/ctrl src/kbd
 
 SOURCES = $(wildcard ../dsp/**/*.cpp)
 SOURCES += $(wildcard ../dsp/third-party/falco/*.cpp)
