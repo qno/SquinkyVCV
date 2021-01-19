@@ -1,20 +1,17 @@
 RACK_DIR ?= ../../..
 
-INCS := $(foreach inc,$(PLUGIN_1_INCLUDES),-I../$(inc))
-INCS += -I./src/third-party -I.src/ctrl -I./src/kbd
+INCLUDES := $(foreach INCLUDE,$(PLUGIN_1_INCLUDES),-I../$(INCLUDE))
+INCLUDES += -I./src/third-party -I./src/ctrl -I./src/kbd
 
-FLAGS += $(INCS)
+FLAGS += $(INCLUDES)
 $(info PLUGIN_1_INCLUDES="$(PLUGIN_1_INCLUDES)")
-$(info INCS="$(INCS)")
 $(info FLAGS="$(FLAGS)")
 
-SRCS = $(foreach src,$(PLUGIN_1_COMMON_SOURCES),../$(src))
-SOURCES += $(SRCS)
+SOURCES += $(foreach SRC,$(PLUGIN_1_COMMON_SOURCES),../$(SRC))
 SOURCES += $(wildcard src/third-party/*.cpp)
 SOURCES += $(wildcard src/seq/*.cpp)
 SOURCES += $(wildcard src/kbd/*.cpp)
 $(info PLUGIN_1_COMMON_SOURCES="$(PLUGIN_1_COMMON_SOURCES)")
-$(info SRCS="$(SRCS)")
 $(info SOURCES="$(SOURCES)")
 
 # include res and presets folder
