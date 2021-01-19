@@ -1,3 +1,6 @@
+RACK_DIR ?= ../..
+include $(RACK_DIR)/arch.mk
+
 CFLAGS +=
 CXXFLAGS +=
 
@@ -54,6 +57,12 @@ endif
 #  -flto
 FLAGS += -finline-limit=500000 -finline-functions-called-once -flto
 LDFLAGS += -flto
+
+export CFLAGS
+export CXXFLAGS
+export FLAGS
+export LDFLAGS
+export ASSERTOFF
 
 dep:
 	$(MAKE) -C plugin-1 dep
