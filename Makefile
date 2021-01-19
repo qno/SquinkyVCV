@@ -1,17 +1,25 @@
-
-SLUG = squinkylabs-plug1
-
-# FLAGS will be passed to both the C and C++ compiler
-FLAGS += -I./dsp/generators -I./dsp/utils -I./dsp/filters
-FLAGS += -I./dsp/third-party/falco -I./dsp/third-party/kiss_fft130 
-FLAGS += -I./dsp/third-party/kiss_fft130/tools -I./dsp/third-party/src -I./dsp/third-party/midifile
-FLAGS += -I./dsp -I./dsp/samp -I./dsp/third-party/pugixml
-FLAGS += -I./sqsrc/thread -I./dsp/fft -I./composites
-FLAGS += -I./sqsrc/noise -I./sqsrc/util -I./sqsrc/clock -I./sqsrc/grammar -I./sqsrc/delay
-FLAGS += -I./midi/model -I./midi/view -I./midi/controller -I./util
-FLAGS += -I./src/third-party -I.src/ctrl -I./src/kbd
 CFLAGS +=
 CXXFLAGS +=
+
+PLUGIN_1_INCLUDES = -I./dsp/generators -I./dsp/utils -I./dsp/filters
+PLUGIN_1_INCLUDES += -I./dsp/third-party/falco -I./dsp/third-party/kiss_fft130 
+PLUGIN_1_INCLUDES += -I./dsp/third-party/kiss_fft130/tools -I./dsp/third-party/src -I./dsp/third-party/midifile
+PLUGIN_1_INCLUDES += -I./dsp -I./dsp/samp -I./dsp/third-party/pugixml
+PLUGIN_1_INCLUDES += -I./sqsrc/thread -I./dsp/fft -I./composites
+PLUGIN_1_INCLUDES += -I./sqsrc/noise -I./sqsrc/util -I./sqsrc/clock -I./sqsrc/grammar -I./sqsrc/delay
+PLUGIN_1_INCLUDES += -I./midi/model -I./midi/view -I./midi/controller -I./util
+PLUGIN_1_INCLUDES += -I./src/third-party -I.src/ctrl -I./src/kbd
+
+PLUGIN_1_COMMON_SOURCES = $(wildcard dsp/**/*.cpp)
+PLUGIN_1_COMMON_SOURCES += $(wildcard dsp/third-party/falco/*.cpp)
+PLUGIN_1_COMMON_SOURCES += $(wildcard dsp/third-party/midifile/*.cpp)
+PLUGIN_1_COMMON_SOURCES += dsp/third-party/kiss_fft130/kiss_fft.c
+PLUGIN_1_COMMON_SOURCES += dsp/third-party/kiss_fft130/tools/kiss_fftr.c
+PLUGIN_1_COMMON_SOURCES += $(wildcard sqsrc/**/*.cpp)
+PLUGIN_1_COMMON_SOURCES += $(wildcard midi/**/*.cpp)
+
+export PLUGIN_1_INCLUDES
+export PLUGIN_1_COMMON_SOURCES
 
 # compile for V1 vs 0.6
 FLAGS += -D __V1x
@@ -34,28 +42,6 @@ endif
 # Static libraries are fine.
 LDFLAGS += -lpthread
 
-# Add .cpp and .c files to the build
-SOURCES += $(wildcard src/*.cpp)
-SOURCES += $(wildcard dsp/**/*.cpp)
-SOURCES += $(wildcard dsp/third-party/falco/*.cpp)
-SOURCES += $(wildcard dsp/third-party/midifile/*.cpp)
-SOURCES += dsp/third-party/kiss_fft130/kiss_fft.c
-SOURCES += dsp/third-party/kiss_fft130/tools/kiss_fftr.c
-SOURCES += $(wildcard sqsrc/**/*.cpp)
-SOURCES += $(wildcard midi/**/*.cpp)
-SOURCES += $(wildcard src/third-party/*.cpp)
-SOURCES += $(wildcard src/seq/*.cpp)
-SOURCES += $(wildcard src/kbd/*.cpp)
-
-# include res and presets folder
-DISTRIBUTABLES += $(wildcard LICENSE*) res presets
-
-# If RACK_DIR is not defined when calling the Makefile, default to two levels above
-RACK_DIR ?= ../..
-
-# Include the VCV Rack plugin Makefile framework
-include $(RACK_DIR)/plugin.mk
-
 # This turns asserts off for make (plugin), not for test or perf
 $(TARGET) :  FLAGS += $(ASSERTOFF)
 
@@ -70,5 +56,13 @@ endif
 FLAGS += -finline-limit=500000 -finline-functions-called-once -flto
 LDFLAGS += -flto
 
-include test.mk
+dep:
+	$(MAKE) -C plugin-1 dep
 
+install:
+	$(MAKE) -C plugin-1 install
+
+dist:
+	$(MAKE) -C plugin-1 dist
+
+include test.mk
