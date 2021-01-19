@@ -20,7 +20,7 @@ SRCS += $(wildcard src/third-party/*.cpp)
 SRCS += $(wildcard src/seq/*.cpp)
 SRCS += $(wildcard src/kbd/*.cpp)
 
-FLAGS +=  $(foreach INCLUDE,$(INCLUDES),-I$(realpath $(INCLUDE)))
+FLAGS +=  $(foreach INCLUDE,$(INCLUDES),-I$(INCLUDE))
 SOURCES += $(SRCS)
 
 $(info FLAGS="$(FLAGS)")
@@ -29,10 +29,10 @@ $(info SOURCES="$(SOURCES)")
 # include res and presets folder
 DISTRIBUTABLES += $(wildcard ../LICENSE*) res presets
 
+# Include the VCV Rack plugin Makefile framework
+include $(RACK_DIR)/plugin.mk
+
 # This turns asserts off for make (plugin), not for test or perf
 $(TARGET) :  FLAGS += $(ASSERTOFF)
 
 $(TARGET) : FLAGS += -D __PLUGIN
-
-# Include the VCV Rack plugin Makefile framework
-include $(RACK_DIR)/plugin.mk
