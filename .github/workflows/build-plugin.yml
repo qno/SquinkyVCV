@@ -57,6 +57,7 @@ jobs:
           export RACK_DIR=$HOME/Rack-SDK
           make -j dep
           make -j dist
+          make -j test
       - name: Upload artifact
         uses: actions/upload-artifact@v2
         with:
