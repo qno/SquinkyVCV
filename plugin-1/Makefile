@@ -27,7 +27,7 @@ $(info FLAGS="$(FLAGS)")
 $(info SOURCES="$(SOURCES)")
 
 # include res and presets folder
-DISTRIBUTABLES += $(wildcard ../LICENSE*) res presets
+DISTRIBUTABLES += $(wildcard LICENSE*) res presets
 
 # Include the VCV Rack plugin Makefile framework
 include $(RACK_DIR)/plugin.mk
