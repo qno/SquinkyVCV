@@ -7,7 +7,7 @@ INCLUDES += ../dsp ../dsp/samp ../dsp/third-party/pugixml
 INCLUDES += ../sqsrc/thread ../dsp/fft ../composites
 INCLUDES += ../sqsrc/util ../sqsrc/clock ../sqsrc/grammar ../sqsrc/delay
 INCLUDES += ../midi/model ../midi/view ../midi/controller ../util
-INCLUDES += src/third-party src/ctrl src/kbd
+INCLUDES += src src/third-party src/ctrl src/kbd
 
 SRCS =  $(wildcard ../dsp/**/*.cpp)
 SRCS += $(wildcard ../dsp/third-party/falco/*.cpp)
