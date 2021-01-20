@@ -1,15 +1,7 @@
+RACK_DIR ?= ../..
 
-SLUG = squinkylabs-plug1
+include $(RACK_DIR)/arch.mk
 
-# FLAGS will be passed to both the C and C++ compiler
-FLAGS += -I./dsp/generators -I./dsp/utils -I./dsp/filters
-FLAGS += -I./dsp/third-party/falco -I./dsp/third-party/kiss_fft130 
-FLAGS += -I./dsp/third-party/kiss_fft130/tools -I./dsp/third-party/src -I./dsp/third-party/midifile
-FLAGS += -I./dsp -I./dsp/samp -I./dsp/third-party/pugixml
-FLAGS += -I./sqsrc/thread -I./dsp/fft -I./composites
-FLAGS += -I./sqsrc/noise -I./sqsrc/util -I./sqsrc/clock -I./sqsrc/grammar -I./sqsrc/delay
-FLAGS += -I./midi/model -I./midi/view -I./midi/controller -I./util
-FLAGS += -I./src/third-party -I.src/ctrl -I./src/kbd
 CFLAGS +=
 CXXFLAGS +=
 
@@ -33,42 +25,26 @@ endif
 # Careful about linking to shared libraries, since you can't assume much about the user's environment and library search path.
 # Static libraries are fine.
 LDFLAGS += -lpthread
-
-# Add .cpp and .c files to the build
-SOURCES += $(wildcard src/*.cpp)
-SOURCES += $(wildcard dsp/**/*.cpp)
-SOURCES += $(wildcard dsp/third-party/falco/*.cpp)
-SOURCES += $(wildcard dsp/third-party/midifile/*.cpp)
-SOURCES += dsp/third-party/kiss_fft130/kiss_fft.c
-SOURCES += dsp/third-party/kiss_fft130/tools/kiss_fftr.c
-SOURCES += $(wildcard sqsrc/**/*.cpp)
-SOURCES += $(wildcard midi/**/*.cpp)
-SOURCES += $(wildcard src/third-party/*.cpp)
-SOURCES += $(wildcard src/seq/*.cpp)
-SOURCES += $(wildcard src/kbd/*.cpp)
-
-# include res and presets folder
-DISTRIBUTABLES += $(wildcard LICENSE*) res presets
-
-# If RACK_DIR is not defined when calling the Makefile, default to two levels above
-RACK_DIR ?= ../..
-
-# Include the VCV Rack plugin Makefile framework
-include $(RACK_DIR)/plugin.mk
-
-# This turns asserts off for make (plugin), not for test or perf
-$(TARGET) :  FLAGS += $(ASSERTOFF)
-
-$(TARGET) : FLAGS += -D __PLUGIN
+FLAGS += -flto
 
 # mac does not like this argument
-ifdef ARCH_WIN
-	FLAGS += -fmax-errors=5
+ifndef ARCH_MAC
+	FLAGS += -fmax-errors=5 -finline-limit=500000 -finline-functions-called-once
 endif
 
-#  -flto
-FLAGS += -finline-limit=500000 -finline-functions-called-once -flto
-LDFLAGS += -flto
+export CFLAGS
+export CXXFLAGS
+export FLAGS
+export LDFLAGS
+export ASSERTOFF
+
+dep:
+	$(MAKE) -C plugin-1 dep
+
+install:
+	$(MAKE) -C plugin-1 install
+
+dist:
+	$(MAKE) -C plugin-1 dist
 
 include test.mk
-
